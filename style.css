@@ -23,20 +23,21 @@ Fonts:
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'octosquareslight';
+  font-weight
   margin: 0;
   padding: 30px;
-  background-color: #f0f0f0;
+  background-color: #1e90ff;
   color: #333;
 }
 
 .container {
+  border: 2px solid black;
   max-width: 750px;
-  margin: 50px auto;
-  background-color: #fff;
+  margin: 40px auto;
+  background-color: #82caff;
   padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .25);
 }
 
 h1 {
@@ -62,17 +63,17 @@ h1 img {
 .stats {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
-  background-color: #f5f5f5;
+  margin-bottom: 30px;    
+  background-color: #0095ff;
   padding: 15px 0;
-  border-radius: 8px;
+  border: 2px solid;
 }
 
 .stats p {
   margin: 0;
   font-size: 18px;
-  font-weight: bold;
-  color: #333;
+  font-weight: 550;
+  color: #ddf;
 }
 
 .game-grid {
@@ -84,8 +85,8 @@ h1 img {
 }
 
 .grid-cell {
-  background-color: #e8e8e8;
-  border-radius: 8px;
+  background-color: #0095ff;
+  border: 2px solid;
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -102,7 +103,7 @@ h1 img {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70px;
-  height: 70px;
+  height: 90px;
   /* Ensure the wrapper is properly centered */
 }
 
@@ -119,6 +120,116 @@ h1 img {
   transform-origin: center; /* Ensure scaling happens from the center */
 }
 
+.spiked-ball-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  /* Ensure the wrapper is properly centered */
+}
+
+.spiked-ball {
+  width: 100%;
+  height: 100%;
+  background-image: url('img/spikedball.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border-radius: 50%;
+  animation: popUp 0.5s cubic-bezier(0.17, 0.67, 0.34, 2);
+  transform-origin: center; /* Ensure scaling happens from the center */
+}
+
+/* Confetti piece styling */
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--confetti-color);
+  opacity: 0.9;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: confetti-fall var(--fall-duration) linear forwards;
+}
+
+/* Keyframes to drop and spin each piece */
+@keyframes confetti-fall {
+  to {
+    transform: translate(var(--x-offset), 100vh) rotate(var(--rotation));
+    opacity: 0;
+  }
+}
+
+
+#start-game {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #0068b3;
+  color: white;
+  border: 2px solid black;
+  border-radius: 0;
+  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+}
+
+#start-game:hover {
+  background-color: #0095ff;
+  box-shadow: 0 0 10px #0095ff;
+}
+
+#start-game:active {
+  transform: scale(1.1);
+}
+
+.bubble-grid {
+  animation: grid-bubble 0.4s ease;
+}
+
+.title-text {
+  font-family: 'octosquareslight';
+}
+
+/* Flash-red animation */
+@keyframes flash-red {
+  0%   { background-color: red; }
+  50%  { background-color: #0095ff; }
+  100% { background-color: red; }
+}
+
+/* Flash-green animation */
+@keyframes flash-green {
+  0%   { background-color: green; }
+  50%  { background-color: #0095ff; }
+  100% { background-color: green; }
+}
+
+/* Apply to the cells */
+.grid-cell.flash-red {
+  animation: flash-red 0.5s ease-in-out 1;
+}
+
+.grid-cell.flash-green {
+  animation: flash-green 0.5s ease-in-out 1;
+}
+
+@font-face {
+  font-family: 'octosquareslight';
+  src: url('fonts/octosquareslight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* improves loading behavior */
+}
+
+@keyframes grid-bubble {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
 @keyframes popUp {
   0% {
     transform: scale(0.5); /* Start scaling from the center */
@@ -127,7 +238,6 @@ h1 img {
     transform: scale(1); /* End scaling at full size */
   }
 }
-
 
 button {
   background-color: #4CAF50;
