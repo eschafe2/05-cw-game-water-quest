@@ -4,13 +4,21 @@ const loseSfx = new Audio('sfx/lose.mp3');
 const scoreSfx  = new Audio('sfx/score.mp3');
 const penaltySfx = new Audio('sfx/penalty.mp3');
 
+// --- Difficulty settings ---
+const DIFFICULTY = {
+  easy:   { spawnRate: 1100, label: 'Easy'   },
+  medium: { spawnRate: 700,  label: 'Medium' },
+  hard:   { spawnRate: 400,  label: 'Hard'   }
+};
+let currentDifficulty = 'easy';
+
 // Game configuration and state variables
 const GOAL_CANS = 25;        // Total items needed to collect
 let currentCans = 0;         // Current number of items collected
 let gameActive = false;      // Tracks if game is currently running
 let spawnInterval;           // Holds the interval for spawning items
 let timerInterval;           // Holds the interval for the countdown
-let timeLeft = 30;           // Seconds left in current session
+let timeLeft = 60;           // Seconds left in current session
 
 // Creates the 3x3 game grid where items will appear
 function createGrid() {
@@ -25,6 +33,21 @@ function createGrid() {
 
 // Ensure the grid is created when the page loads
 createGrid();
+
+// --- Difficulty button logic ---
+function setDifficulty(level) {
+  currentDifficulty = level;
+  // Highlight selected button
+  document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('selected'));
+  document.getElementById(level + '-btn').classList.add('selected');
+}
+
+document.getElementById('easy-btn').addEventListener('click', () => setDifficulty('easy'));
+document.getElementById('medium-btn').addEventListener('click', () => setDifficulty('medium'));
+document.getElementById('hard-btn').addEventListener('click', () => setDifficulty('hard'));
+
+// Set default selected
+setDifficulty('easy');
 
 // Spawns a new item in a random grid cell
 function spawnWaterCan() {
@@ -164,13 +187,14 @@ function startGame() {
 
   currentCans = 0;
   updateScore();
-  timeLeft = 30;
+  timeLeft = 60;
   document.getElementById('timer').textContent = timeLeft;
 
   createGrid();
   bubbleGrid();
 
-  spawnInterval = setInterval(spawnWaterCan, 700);
+  // Use spawn rate based on difficulty
+  spawnInterval = setInterval(spawnWaterCan, DIFFICULTY[currentDifficulty].spawnRate);
   timerInterval = setInterval(tickTimer, 1000);
 }
 

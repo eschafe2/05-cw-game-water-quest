@@ -251,3 +251,56 @@ button {
   margin: 30px auto 0;
   transition: background-color 0.2s;
 }
+
+.difficulty-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.difficulty-btn {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 22px;
+  border: 2px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+  color: #fff;
+}
+
+.difficulty-btn.easy {
+  background-color: #4FCB53;
+}
+
+.difficulty-btn.medium {
+  background-color: #FFC907;
+  color: #333;
+}
+
+.difficulty-btn.hard {
+  background-color: #F5402C;
+}
+
+.difficulty-btn.selected {
+  box-shadow: 0 0 10px #333;
+  transform: scale(1.08);
+}
+
+.footer {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 16px;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: #159A48;
+}
